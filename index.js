@@ -30,6 +30,8 @@ cron.schedule('* * * * * *', function () {
 		temp = parseFloat(tempString)
 		temp = temp/1000
 		currentTemp = temp
+
+		io.emit('temp', currentTemp)
 	});
 })
 
