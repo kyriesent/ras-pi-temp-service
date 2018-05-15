@@ -1,0 +1,15 @@
+[Unit]
+Description=Temperature Reading Service
+
+[Service]
+ExecStart=/home/pi/ras-pi-temp-service/index.js
+Restart=always
+User=root
+# Note RHEL/Fedora uses 'nobody', Debian/Ubuntu uses 'nogroup'
+Group=root  
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=development
+WorkingDirectory=/home/pi/ras-pi-temp-service
+
+[Install]
+WantedBy=multi-user.target
