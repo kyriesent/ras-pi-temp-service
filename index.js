@@ -41,12 +41,11 @@ const app = express()
 const server = http.Server(app)
 const io = socketIo(server)
 
-app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname, './public/index.html'))
-})
+app.use(express.static(path.join(__dirname, 'public')))
 
 io.on('connection', function (socket) {
 	console.log("user connected")
+	socket.emit('temp', currentTemp)
 })
 
 server.listen(80)

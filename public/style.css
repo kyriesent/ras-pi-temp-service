@@ -1,0 +1,11 @@
+body {
+	text-align: center;
+	margin-top: 60px;
+	color: #aa5439;
+	background-color: #222;
+}
+
+h2 {
+	font-size: 6.5rem;
+	font-weight: bold;
+}
