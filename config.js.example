@@ -1,0 +1,3 @@
+module.exports = {
+	thermSerial: '28-03170227faff'
+}
