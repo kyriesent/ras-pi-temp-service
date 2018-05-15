@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const cron = require('node-cron')
 
@@ -32,7 +33,7 @@ cron.schedule('* * * * * *', function () {
 app = express()
 
 app.use('/', function (req, res) {
-	res.send('hello world')
+	res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
 app.listen(80)
