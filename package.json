@@ -18,6 +18,7 @@
   "homepage": "https://github.com/kyriesent/ras-pi-temp-service#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "node-cron": "^1.2.1"
+    "node-cron": "^1.2.1",
+    "socket.io": "^2.1.0"
   }
 }

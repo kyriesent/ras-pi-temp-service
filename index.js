@@ -1,7 +1,9 @@
 const fs = require('fs')
 const path = require('path')
+const http = require('http')
 const express = require('express')
 const cron = require('node-cron')
+const socketIo = require('socket.io')
 
 const config = require('./config')
 
@@ -11,7 +13,7 @@ console.log('Looking for thermometer with serial number ' + thermSerial + ' in /
 thermFileName = '/sys/bus/w1/devices/' + thermSerial + '/w1_slave'
 thermFile = fs.readFileSync(thermFileName, { encoding: 'UTF-8' })
 
-var temp = 0;
+var currentTemp = 0;
 
 cron.schedule('* * * * * *', function () {
 	fs.readFile(thermFileName, { encoding: 'UTF-8' }, function (err, data) {
@@ -27,14 +29,21 @@ cron.schedule('* * * * * *', function () {
 
 		temp = parseFloat(tempString)
 		temp = temp/1000
+		currentTemp = temp
 	});
 })
 
-app = express()
+const app = express()
+const server = http.Server(app)
+const io = socketIo(server)
 
-app.use('/', function (req, res) {
+app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
-app.listen(80)
+io.on('connection', function (socket) {
+	console.log("user connected")
+})
+
+server.listen(80)
 console.log('Raspberry Pi Temp Sensor listening on port 80')
